@@ -26,7 +26,7 @@ export default function Products() {
   const renderFilters = (table: Table<ProductType>) => (
     <div className="w-full flex flex-col gap-4">
       <Input
-        placeholder="Filter name..."
+        placeholder="搜尋名稱"
         value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
         onChange={(event) =>
           table.getColumn("name")?.setFilterValue(event.target.value)

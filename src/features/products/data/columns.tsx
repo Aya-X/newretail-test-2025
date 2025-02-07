@@ -13,11 +13,11 @@ export type ProductType = {
 export const columns: ColumnDef<ProductType>[] = [
   {
     accessorKey: "name",
-    header: "Name",
+    header: "商品名稱",
   },
   {
     accessorKey: "category",
-    header: "Category",
+    header: "類別",
     filterFn: (row, columnId, value: string[]) => {
       if (!value?.length) return true;
       const category = row.getValue(columnId) as string;
@@ -32,7 +32,7 @@ export const columns: ColumnDef<ProductType>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Price
+          價格
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -46,7 +46,10 @@ export const columns: ColumnDef<ProductType>[] = [
   },
   {
     accessorKey: "inStock",
-    header: "InStock",
+    header: "有庫存",
+    cell: (value) => {
+      return <>{value ? "✅" : "❌"}</>;
+    },
     filterFn: (row, columnId, value: boolean) => {
       if (value === undefined || value === null) return true;
       return row.getValue(columnId) === value;

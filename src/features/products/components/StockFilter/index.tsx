@@ -23,7 +23,7 @@ export default function StockFilter(props: StockFilterPropsType) {
           table.getColumn("inStock")?.setFilterValue(checked);
         }}
       />
-      <Label htmlFor="stock-filter">Show in stock only</Label>
+      <Label htmlFor="stock-filter">只顯示「有庫存」</Label>
     </div>
   );
 }

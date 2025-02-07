@@ -32,14 +32,14 @@ export default function PriceRangeFilter(props: PriceRangeFilterPropsType) {
   return (
     <div className="flex items-center gap-2">
       <Input
-        placeholder="Min price"
+        placeholder="最低價格"
         value={priceRange.min}
         onChange={(e) => handlePriceRangeChange("min", e.target.value)}
         className="max-w-[100px]"
       />
       <span>-</span>
       <Input
-        placeholder="Max price"
+        placeholder="最高價格"
         value={priceRange.max}
         onChange={(e) => handlePriceRangeChange("max", e.target.value)}
         className="max-w-[100px]"

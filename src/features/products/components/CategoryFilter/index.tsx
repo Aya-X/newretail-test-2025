@@ -61,7 +61,7 @@ export default function CategoryFilter(props: CategoryFilterPropsType) {
       <div className="flex items-center gap-2">
         <Select onValueChange={handleCategorySelect}>
           <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select category" />
+            <SelectValue placeholder="選擇類別" />
           </SelectTrigger>
           <SelectContent>
             {categories.map((category) => (
@@ -78,7 +78,7 @@ export default function CategoryFilter(props: CategoryFilterPropsType) {
             onClick={handleClearCategories}
             className="h-8 px-2 lg:px-3"
           >
-            Clear
+            清空
           </Button>
         )}
       </div>

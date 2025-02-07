@@ -8,6 +8,7 @@ import { DataTable } from "@/components/DataTable";
 
 import { type ProductType, columns } from "./data/columns";
 import PriceRangeFilter from "./components/PriceRangeFilter";
+import StockFilter from "./components/StockFilter";
 
 function getData(): Promise<ProductType[]> {
   return new Promise((resolve) => {
@@ -33,6 +34,7 @@ export default function Products() {
       />
 
       <PriceRangeFilter table={table} />
+      <StockFilter table={table} />
     </>
   );
 

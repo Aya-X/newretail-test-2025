@@ -42,5 +42,9 @@ export const columns: ColumnDef<ProductType>[] = [
   {
     accessorKey: "inStock",
     header: "InStock",
+    filterFn: (row, columnId, value: boolean) => {
+      if (value === undefined || value === null) return true;
+      return row.getValue(columnId) === value;
+    },
   },
 ];

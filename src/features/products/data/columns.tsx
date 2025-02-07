@@ -32,6 +32,12 @@ export const columns: ColumnDef<ProductType>[] = [
         </Button>
       );
     },
+    filterFn: (row, columnId, value: { min: string; max: string }) => {
+      const price = row.getValue(columnId) as number;
+      const min = value.min === "" ? -Infinity : Number(value.min);
+      const max = value.max === "" ? Infinity : Number(value.max);
+      return price >= min && price <= max;
+    },
   },
   {
     accessorKey: "inStock",

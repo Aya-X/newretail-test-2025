@@ -4,11 +4,18 @@ import path from "path"
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/newretail-test-2025/',
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        format: 'es'
+      }
+    }
+  }
 })

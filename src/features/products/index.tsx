@@ -9,6 +9,7 @@ import { DataTable } from "@/components/DataTable";
 import { type ProductType, columns } from "./data/columns";
 import PriceRangeFilter from "./components/PriceRangeFilter";
 import StockFilter from "./components/StockFilter";
+import CategoryFilter from "./components/CategoryFilter";
 
 function getData(): Promise<ProductType[]> {
   return new Promise((resolve) => {
@@ -23,7 +24,7 @@ export default function Products() {
   const [loading, setLoading] = useState<boolean>(true);
 
   const renderFilters = (table: Table<ProductType>) => (
-    <>
+    <div className="w-full flex flex-col gap-4">
       <Input
         placeholder="Filter name..."
         value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -32,10 +33,10 @@ export default function Products() {
         }
         className="max-w-sm"
       />
-
       <PriceRangeFilter table={table} />
       <StockFilter table={table} />
-    </>
+      <CategoryFilter table={table} />
+    </div>
   );
 
   useEffect(() => {

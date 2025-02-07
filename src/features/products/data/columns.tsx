@@ -18,6 +18,11 @@ export const columns: ColumnDef<ProductType>[] = [
   {
     accessorKey: "category",
     header: "Category",
+    filterFn: (row, columnId, value: string[]) => {
+      if (!value?.length) return true;
+      const category = row.getValue(columnId) as string;
+      return value.includes(category);
+    },
   },
   {
     accessorKey: "price",

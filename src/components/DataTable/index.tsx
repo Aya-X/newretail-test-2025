@@ -20,6 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Card, CardContent } from "@/components/ui/card";
 
 import { DataTablePagination } from "@/components/DataTablePagination";
 
@@ -55,23 +56,23 @@ export function DataTable<TData, TValue>({
   return (
     <>
       <div className="flex items-center gap-4 py-4">{filters?.(table)}</div>
-      <div className="rounded-md border">
+
+      {/* 桌機版表格 */}
+      <div className="hidden md:block rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
@@ -104,7 +105,38 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
+      </div>
 
+      {/* 手機版卡片 */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:hidden">
+        {table.getRowModel().rows.map((row) => (
+          <Card key={row.id}>
+            <CardContent className="p-4">
+              {row.getVisibleCells().map((cell) => {
+                const column = columns.find((col) => col.id === cell.column.id);
+                return (
+                  <div key={cell.id} className="py-2">
+                    <div className="font-medium text-sm text-gray-500">
+                      {column?.header as string}
+                    </div>
+                    <div>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </CardContent>
+          </Card>
+        ))}
+        {!table.getRowModel().rows.length && (
+          <div className="text-center col-span-2 py-4">空</div>
+        )}
+      </div>
+
+      <div className="mt-4">
         <DataTablePagination table={table} />
       </div>
     </>

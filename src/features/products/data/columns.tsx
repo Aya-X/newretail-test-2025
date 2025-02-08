@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 
@@ -37,6 +38,15 @@ export const columns: ColumnDef<ProductType>[] = [
         </Button>
       );
     },
+    cell: (value) => {
+      return (
+        <>
+          <span className="font-medium">
+            $ {new Intl.NumberFormat().format(value.getValue() as number)}
+          </span>
+        </>
+      );
+    },
     filterFn: (row, columnId, value: { min: string; max: string }) => {
       const price = row.getValue(columnId) as number;
       const min = value.min === "" ? -Infinity : Number(value.min);
@@ -48,7 +58,16 @@ export const columns: ColumnDef<ProductType>[] = [
     accessorKey: "inStock",
     header: "有庫存",
     cell: (value) => {
-      return <>{value ? "✅" : "❌"}</>;
+      return (
+        <>
+          <Badge
+            variant={value.getValue() ? "secondary" : "destructive"}
+            className="w-20 justify-center"
+          >
+            {value.getValue() ? "有庫存" : "缺貨"}
+          </Badge>
+        </>
+      );
     },
     filterFn: (row, columnId, value: boolean) => {
       if (value === undefined || value === null) return true;
